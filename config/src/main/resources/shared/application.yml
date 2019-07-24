@@ -8,7 +8,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 10000
+            timeoutInMilliseconds: 60000
 
 eureka:
   instance:
@@ -20,8 +20,14 @@ eureka:
 security:
   oauth2:
     resource:
-      user-info-uri: http://auth-service:5000/uaa/users/current
+      user-info-uri: http://auth-service:15000/uaa/users/current
 
 spring:
   rabbitmq:
     host: rabbitmq
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

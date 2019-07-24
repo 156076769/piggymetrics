@@ -1,0 +1,24 @@
+---- 每次启动 ----
+export CONFIG_SERVICE_PASSWORD="123456"
+export NOTIFICATION_SERVICE_PASSWORD="123456"
+export STATISTICS_SERVICE_PASSWORD="123456"
+export ACCOUNT_SERVICE_PASSWORD="123456"
+export MONGODB_PASSWORD="123456"
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d
+
+---- 创建DB ----
+db.createUser({user: "user",pwd: "123456",roles: [ { role: "readWrite", db: "piggymetrics" } ]})
+
+---- docker常用 ----
+docker ps --all
+docker attach 44fc0f0582d9
+docker run --network piggymetrics_default -p 22000:27017 --name some-mongo-1 -d mongo
+docker run --network piggymetrics_default --rm -it --name my-mongo-1 mongo mongo --host piggymetrics_account-mongodb_1 test
+docker exec -it piggymetrics_account-mongodb_1 bash
+docker run --network piggymetrics_default --name some-mongo-1 -d mongo
+docker exec -it piggymetrics_account-service_1 ping piggymetrics_account-mongodb_1
+docker logs -f piggymetrics_gateway_1
+
+---- mvn常用 ----
+mvn package -DskipTests

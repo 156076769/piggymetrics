@@ -4,22 +4,22 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 20000
+            timeoutInMilliseconds: 60000
 
 ribbon:
-  ReadTimeout: 20000
-  ConnectTimeout: 20000
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
 
 zuul:
   ignoredServices: '*'
   host:
-    connect-timeout-millis: 20000
-    socket-timeout-millis: 20000
+    connect-timeout-millis: 100000
+    socket-timeout-millis: 100000
 
   routes:
     auth-service:
         path: /uaa/**
-        url: http://auth-service:5000
+        url: http://auth-service:15000
         stripPrefix: false
         sensitiveHeaders:
 
@@ -42,4 +42,4 @@ zuul:
         sensitiveHeaders:
 
 server:
-  port: 4000
+  port: 14000
